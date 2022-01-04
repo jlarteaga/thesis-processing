@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  freeling:
+    image: jlarteaga/freeling:1.0.3
+    ports:
+      - 9000:50005
+    command: analyze -f /usr/local/share/freeling/config/main.cfg --outlv dep --output xml --server --port 50005
+    volumes:
+      - ${PWD}/main.cfg:/usr/local/share/freeling/config/main.cfg
