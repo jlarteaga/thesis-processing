@@ -9,6 +9,8 @@ services:
       - ${PWD}/freeling/main.cfg:/usr/local/share/freeling/config/main.cfg
   mongodb:
     image: mongo:5.0.5
+    ports:
+      - '27017:27017'
     env_file:
       - mongodb/.env
     volumes:
@@ -25,11 +27,15 @@ services:
     depends_on:
       - mongodb
   dataset-manager:
-    image: jlarteaga/thesis-dataset-manager:0.2.0
+    image: jlarteaga/thesis-dataset-manager:0.2.2
     ports:
       - 3000:3000
     environment:
       SERVER_PORT: 3000
       DATABASE_URI: mongodb://dsUser:123abc.@mongodb:27017/dataset
+      SECURITY_SALT_ROUNDS: 10
+      SECURITY_SECRET: abc123.
+      SECURITY_EXPIRATION: 604800
+      SECURITY_ADMIN_TOKEN: abc123.
     depends_on:
       - mongodb
