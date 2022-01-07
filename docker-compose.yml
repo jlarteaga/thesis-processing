@@ -9,8 +9,6 @@ services:
       - ${PWD}/freeling/main.cfg:/usr/local/share/freeling/config/main.cfg
   mongodb:
     image: mongo:5.0.5
-    ports:
-      - '27017:27017'
     env_file:
       - mongodb/.env
     volumes:
