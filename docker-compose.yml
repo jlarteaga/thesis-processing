@@ -3,12 +3,14 @@ services:
   freeling:
     image: jlarteaga/freeling:1.0.3
     ports:
-      - 9000:50005
+      - '9000:50005'
     command: analyze -f /usr/local/share/freeling/config/main.cfg --outlv dep --output xml --server --port 50005
     volumes:
       - ${PWD}/freeling/main.cfg:/usr/local/share/freeling/config/main.cfg
   mongodb:
     image: mongo:5.0.5
+    ports:
+      - '27017:27017'
     env_file:
       - mongodb/.env
     volumes:
@@ -17,7 +19,7 @@ services:
   mongo-express:
     image: mongo-express
     ports:
-      - 8081:8081
+      - '8081:8081'
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: abc123.
@@ -25,9 +27,9 @@ services:
     depends_on:
       - mongodb
   dataset-manager:
-    image: jlarteaga/thesis-dataset-manager:0.2.2
+    image: jlarteaga/thesis-dataset-manager:0.3.0
     ports:
-      - 3000:3000
+      - '3000:3000'
     environment:
       SERVER_PORT: 3000
       DATABASE_URI: mongodb://dsUser:123abc.@mongodb:27017/dataset
@@ -35,3 +37,12 @@ services:
       SECURITY_SECRET: abc123.
       SECURITY_EXPIRATION: 604800
       SECURITY_ADMIN_TOKEN: abc123.
+      DUMPS_PATH: /usr/src/app/dumps
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    volumes:
+      - ./dumps:/usr/src/app/dumps
+  redis:
+    image: redis:6.2.6-alpine
+    ports:
+      - '6379:6379'
