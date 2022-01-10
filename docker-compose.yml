@@ -25,11 +25,11 @@ services:
     depends_on:
       - mongodb
   dataset-manager:
-    env_file:
-      - main-environment-configuration.env
     image: jlarteaga/thesis-dataset-manager:0.3.1
     ports:
       - '3000:3000'
+    env_file:
+      - main-environment-configuration.env
     environment:
       SERVER_PORT: 3000
       DUMPS_PATH: /usr/src/app/dumps
