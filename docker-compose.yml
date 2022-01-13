@@ -37,6 +37,16 @@ services:
       REDIS_PORT: 6379
     volumes:
       - ./dumps:/usr/src/app/dumps
+  nlp-manager:
+    image: jlarteaga/thesis-nlp-manager:0.0.2
+    command: ["java", "-jar", "/app/nlp-manager.jar"]
+    ports:
+      - '3001:3001'
+    env_file:
+      - main-environment-configuration.env
+    environment:
+      SERVER_PORT: 3001
+      LOGGIN_LEVEL_ROOT: debug
   redis:
     image: redis:6.2.6-alpine
     ports:
