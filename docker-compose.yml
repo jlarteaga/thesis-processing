@@ -50,3 +50,10 @@ services:
     image: redis:6.2.6-alpine
     ports:
       - '6379:6379'
+  rabbit-mq:
+    image: rabbitmq:3.9-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    env_file:
+      - rabbit-mq/.env
