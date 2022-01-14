@@ -24,6 +24,7 @@ services:
       - '3000:3000'
     env_file:
       - main-environment-configuration.env
+      - dataset-manager/.env
     environment:
       SERVER_PORT: 3000
       DUMPS_PATH: /usr/src/app/dumps
