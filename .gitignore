@@ -1,4 +1,5 @@
 mongodb/data
 .idea
-main-environment-configuration
+main-environment-configuration.env
 freeling/main.cfg
+rabbit-mq/.env
