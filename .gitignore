@@ -6,3 +6,4 @@ rabbit-mq/.env
 mongodb/.env
 mongodb/scripts
 mongo-express/.env
+nlp-manager/.env

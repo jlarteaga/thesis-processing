@@ -7,25 +7,17 @@ services:
     command: analyze -f /usr/local/share/freeling/config/main.cfg --outlv coref --output xml --server --port 50005
     volumes:
       - ${PWD}/freeling/main.cfg:/usr/local/share/freeling/config/main.cfg
-  mongodb:
-    image: mongo:5.0.5
+  redis:
+    image: redis:6.2.6-alpine
     ports:
-      - '27017:27017'
-    environment:
-      MONGO_INITDB_DATABASE: dataset
-    env_file:
-      - mongodb/.env
-    volumes:
-      - ./mongodb/scripts:/docker-entrypoint-initdb.d
-      - ./mongodb/data:/data/db
-  mongo-express:
-    image: mongo-express
+      - '6379:6379'
+  rabbit-mq:
+    image: rabbitmq:3.9-management
     ports:
-      - '8081:8081'
+      - '5672:5672'
+      - '15672:15672'
     env_file:
-      - mongo-express/.env
-    depends_on:
-      - mongodb
+      - rabbit-mq/.env
   dataset-manager:
     image: jlarteaga/thesis-dataset-manager:0.4.1
     ports:
@@ -45,17 +37,25 @@ services:
       - '3001:3001'
     env_file:
       - main-environment-configuration.env
+      - nlp-manager/.env
     environment:
       SERVER_PORT: 3001
-      LOGGIN_LEVEL_ROOT: debug
-  redis:
-    image: redis:6.2.6-alpine
+  mongodb:
+    image: mongo:5.0.5
     ports:
-      - '6379:6379'
-  rabbit-mq:
-    image: rabbitmq:3.9-management
-    ports:
-      - '5672:5672'
-      - '15672:15672'
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: dataset
     env_file:
-      - rabbit-mq/.env
+      - mongodb/.env
+    volumes:
+      - ./mongodb/scripts:/docker-entrypoint-initdb.d
+      - ./mongodb/data:/data/db
+  mongo-express:
+    image: mongo-express
+    ports:
+      - '8081:8081'
+    env_file:
+      - mongo-express/.env
+    depends_on:
+      - mongodb
