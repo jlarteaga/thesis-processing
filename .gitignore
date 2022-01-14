@@ -3,3 +3,5 @@ mongodb/data
 main-environment-configuration.env
 freeling/main.cfg
 rabbit-mq/.env
+ mongodb/.env
+mongodb/scripts
