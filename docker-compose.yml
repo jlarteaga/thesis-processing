@@ -41,6 +41,15 @@ services:
       - nlp-manager/.env
     environment:
       SERVER_PORT: 3001
+  coordinator:
+    image: jlarteaga/thesis-coordinator:0.1.0
+    ports:
+      - '3005:3005'
+    env_file:
+      - main-environment-configuration.env
+      - coordinator/.env
+    environment:
+      SERVER_PORT: 3005
   mongodb:
     image: mongo:5.0.5
     ports:
