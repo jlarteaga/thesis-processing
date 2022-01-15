@@ -19,7 +19,7 @@ services:
     env_file:
       - rabbit-mq/.env
   dataset-manager:
-    image: jlarteaga/thesis-dataset-manager:0.4.1
+    image: jlarteaga/thesis-dataset-manager:0.4.2
     ports:
       - '3000:3000'
     env_file:
