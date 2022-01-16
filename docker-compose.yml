@@ -33,7 +33,7 @@ services:
     volumes:
       - ./dumps:/usr/src/app/dumps
   nlp-manager:
-    image: jlarteaga/thesis-nlp-manager:0.0.4
+    image: jlarteaga/thesis-nlp-manager:1.0.0
     ports:
       - '3001:3001'
     env_file:
