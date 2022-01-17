@@ -42,7 +42,7 @@ services:
     environment:
       SERVER_PORT: 3001
   coordinator:
-    image: jlarteaga/thesis-coordinator:1.0.2
+    image: jlarteaga/thesis-coordinator:1.0.3
     ports:
       - '3005:3005'
     env_file:
